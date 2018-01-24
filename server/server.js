@@ -7,12 +7,12 @@ const app = express();
 app.use(bodyParser.json());
 
 // REGULAR ENDPOINTS HERE
-app.get('/api/example', (req, res) => {
+app.get('/api/example', (req, res, next) => {
   res.status(200).send('hello')
 })
 
 const PORT = 4000;
-const io = socket(app.listen(PORT, () => console.log(`Server listening on port ${PORT}`)));
+const io = socket(app.listen(PORT, () => console.log(`Housten we have lift off on port ${PORT}`)));
 
 io.on('connection', socket => {
   console.log('User Connected');
