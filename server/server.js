@@ -18,10 +18,10 @@ io.on('connection', socket => {
   console.log('User Connected');
   // io.emit('message dispatched', 'hello');
   // EVERYONE
-  socket.on('message sent', data => {
-    console.log(data)
-    io.emit('message dispatched', data.message);
-  })
+  // socket.on('message sent', data => {
+  //   console.log(data)
+  //   io.emit('message dispatched', data.message);
+  // })
 
 
   //  EVERYONE BUT ME
@@ -32,14 +32,14 @@ io.on('connection', socket => {
 
   
   // EVERYONE IN THE ROOM
-  // socket.on('join room', data => {
-  //   console.log('Room joined', data.room)
-  //   socket.join(data.room);
-  //   io.to(data.room).emit('room joined');
-  // })
-  // socket.on('message sent', data => {
-  //   io.to(data.room).emit('message dispatched', data.message);
-  // })
+  socket.on('join room', data => {
+    console.log('Room joined', data.room)
+    socket.join(data.room);
+    io.to(data.room).emit('room joined');
+  })
+  socket.on('message sent', data => {
+    io.to(data.room).emit('message dispatched', data.message);
+  })
 
   socket.on('disconnect', () => {
     console.log('User Disconnected');
